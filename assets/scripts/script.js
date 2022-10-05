@@ -23,7 +23,7 @@ for (let i = 1; i < 25; i++) {
 
     var hourCol1 = $("<div></div>").addClass("col-2  p-3 text-right schedTime").attr('id','eventTime').html("<h4>" + timeLabel + "</h4>");
     var hourCol2 = $("<a></a>").addClass(" col-9 border-left border-right border-dark p-3 ").attr('id', 'scheduleEvent');
-    var hourCol3 = $("<a></a>").addClass("col-1  p-3 ").attr('id', 'deleteEvent');
+    var hourCol3 = $("<a></a>").addClass("col-1 d-flex p-3 bg-info text-light justify-content-center align-middle").attr('id', 'deleteEvent').html('<span class="material-symbols-outlined align-self-center">save</span>');
     $(".calendar").append(calendarRow);
     calendarRow.append(hourCol1, hourCol2, hourCol3);
 };
