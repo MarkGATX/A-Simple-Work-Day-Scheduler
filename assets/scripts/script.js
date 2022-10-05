@@ -13,17 +13,17 @@ for (let i = 1; i < 25; i++) {
     
   // if current time matches, turn row red
     if (currentTime === iTime) {
-        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark rounded bg-danger");
+        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right bg-danger");
     } 
     else if (currentTime < iTime) {
-        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark rounded bg-success");
+        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right bg-success");
     } else {
-        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark rounded");
+        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right");
     }
 
-    var hourCol1 = $("<div></div>").addClass("col-2  p-2 text-right schedTime").attr('id','eventTime').text(timeLabel);
-    var hourCol2 = $("<a></a>").addClass(" col-9 border-left border-right border-dark p-2 ").attr('id', 'scheduleEvent');
-    var hourCol3 = $("<a></a>").addClass("col-1  p-2 ").attr('id', 'deleteEvent');
+    var hourCol1 = $("<div></div>").addClass("col-2  p-3 text-right schedTime").attr('id','eventTime').html("<h4>" + timeLabel + "</h4>");
+    var hourCol2 = $("<a></a>").addClass(" col-9 border-left border-right border-dark p-3 ").attr('id', 'scheduleEvent');
+    var hourCol3 = $("<a></a>").addClass("col-1  p-3 ").attr('id', 'deleteEvent');
     $(".calendar").append(calendarRow);
     calendarRow.append(hourCol1, hourCol2, hourCol3);
 };
