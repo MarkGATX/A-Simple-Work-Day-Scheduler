@@ -24,19 +24,17 @@ for (let i = 0; i < 24; i++) {
     //populate schedule with saved events
     var scheduledEvent = JSON.parse(localStorage.getItem("savedEvents"));
     for (let i = 0; i<scheduledEvent.length; i++) {
-        console.log(scheduledEvent[i][0]);
-        console.log(timeLabel);
-        console.log(scheduledEvent[i][1]);
         if (scheduledEvent[i][0] === timeLabel) {
             hourCol2.val(scheduledEvent[i][1]);
         }
     };
+    // append html elements
     $(".calendar").append(calendarRow);
     calendarRow.append(hourCol1, hourCol2, hourCol3, hourCol4);
 
 };
 
-
+// start event listeners
 $('#calendarContainer').on('click', '#saveEvent', storeEvent);
 $('#calendarContainer').on('click', '#clearEvent', clearEvent);
 
@@ -56,6 +54,7 @@ function storeEvent(e) {
     console.log(clicked.previousSibling.previousSibling)
     var clickedEventData = clicked.previousSibling.previousSibling.value;
     console.log(clicked.previousSibling.value + "value");
+    //If event field is blank, stop
     if (clickedEventData === "") {
         return
     }
@@ -68,13 +67,13 @@ function storeEvent(e) {
 };
 
 function clearEvent (e){
-    console.log('ping');
+    //get local storage
     var scheduledEvent = JSON.parse(localStorage.getItem("savedEvents"));
-    console.log(scheduledEvent);
+    //get button pushed
     var clicked = e.target.closest('#clearEvent');
-    console.log(clicked);
+    // get event time 
     var clickedEventTime = clicked.previousSibling.previousSibling.textContent;
-    console.log(clickedEventTime);
+    //compare event time to arrays, when there's a match delete that array element
     for (let i = 0; i < scheduledEvent.length; i ++) {
         console.log(scheduledEvent[i])
         console.log(scheduledEvent[i][0])
@@ -82,6 +81,8 @@ function clearEvent (e){
             scheduledEvent.splice(i,1);
         }
     }
+    //push modified array to local storage
     localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
+    //clear text input on screen
     clicked.previousSibling.value = "";
 }
