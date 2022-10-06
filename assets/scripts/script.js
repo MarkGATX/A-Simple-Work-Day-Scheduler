@@ -23,6 +23,10 @@ for (let i = 0; i < 24; i++) {
     var hourCol4 = $("<button></button>").addClass("col-1 d-flex p-3 bg-info text-light justify-content-center border-0 align-middle").attr('id', 'saveEvent').html('<span class="material-symbols-outlined align-self-center">save</span>');
     //populate schedule with saved events
     var scheduledEvent = JSON.parse(localStorage.getItem("savedEvents"));
+    if (scheduledEvent === null) {
+        scheduledEvent = [];
+        localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
+    }
     for (let i = 0; i<scheduledEvent.length; i++) {
         if (scheduledEvent[i][0] === timeLabel) {
             hourCol2.val(scheduledEvent[i][1]);
@@ -67,15 +71,16 @@ function storeEvent(e) {
         console.log(scheduledEvent[i]);
         if (scheduledEvent[i].includes(clickedEventTime)) {
             console.log(scheduledEvent[i]);
-             scheduledEvent[i] = [clickedEventTime, clickedEventData];
+             scheduledEvent[i] = [clickedEventTime, clickedEventData, moment()];
             console.log(scheduledEvent[i]);
-            localStorage.setItem("scheduledEvent", JSON.stringify(scheduledEvent));
+            localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
             e.target.blur();
             return;
         };
     };
     //put time and event data in new arry
-    var newEvent = [clickedEventTime, clickedEventData];
+    var newEvent = [clickedEventTime, clickedEventData, moment()];
+    console.log(newEvent);
     //push newEvents into existing event array
     scheduledEvent.push(newEvent);
     localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
