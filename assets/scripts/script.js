@@ -59,7 +59,21 @@ function storeEvent(e) {
         e.target.blur();
         return
     }
+    
     var clickedEventTime = clicked.previousSibling.previousSibling.previousSibling.textContent;
+    for (let i =0; i<scheduledEvent.length; i++) {
+        console.log(clickedEventData);
+        console.log(clickedEventTime);
+        console.log(scheduledEvent[i]);
+        if (scheduledEvent[i].includes(clickedEventTime)) {
+            console.log(scheduledEvent[i]);
+             scheduledEvent[i] = [clickedEventTime, clickedEventData];
+            console.log(scheduledEvent[i]);
+            localStorage.setItem("scheduledEvent", JSON.stringify(scheduledEvent));
+            e.target.blur();
+            return;
+        };
+    };
     //put time and event data in new arry
     var newEvent = [clickedEventTime, clickedEventData];
     //push newEvents into existing event array
