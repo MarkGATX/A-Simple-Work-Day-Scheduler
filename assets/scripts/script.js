@@ -18,7 +18,7 @@ for (let i = 0; i < 24; i++) {
         var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right lightgrey");
     };
     var hourCol1 = $("<div></div>").addClass("col-2  p-3 text-right bg-light schedTime pt-4 align-baseline").attr('id', 'eventTime' + i).html("<h4>" + timeLabel + "</h4>");
-    var hourCol2 = $("<input></input>").addClass(" col-8 d-flex align-top pl-2 pr-2  border-0 p-0 text-top bg-transparent align-baseline").attr('id', 'scheduleEvent' + i).attr("type", "text");
+    var hourCol2 = $("<input></input>").addClass(" col-8 d-flex align-top pl-2 pr-2  border-0 p-0 text-top text-light  bg-transparent align-baseline").attr('id', 'scheduleEvent' + i).attr("type", "text");
     var hourCol3 = $("<button></button>").addClass("col-1 d-flex p-3 darkteal text-light justify-content-center border-0 align-middle").attr('id', 'clearEvent').html('<span class="material-symbols-outlined align-self-center">delete</span>');
     var hourCol4 = $("<button></button>").addClass("col-1 d-flex p-3 bg-info text-light justify-content-center border-0 align-middle").attr('id', 'saveEvent').html('<span class="material-symbols-outlined align-self-center">save</span>');
     //populate schedule with saved events
@@ -56,6 +56,7 @@ function storeEvent(e) {
     console.log(clicked.previousSibling.value + "value");
     //If event field is blank, stop
     if (clickedEventData === "") {
+        e.target.blur();
         return
     }
     var clickedEventTime = clicked.previousSibling.previousSibling.previousSibling.textContent;
@@ -64,6 +65,7 @@ function storeEvent(e) {
     //push newEvents into existing event array
     scheduledEvent.push(newEvent);
     localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
+    e.target.blur();
 };
 
 function clearEvent (e){
