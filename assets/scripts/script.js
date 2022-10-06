@@ -15,9 +15,9 @@ for (let i = 0; i < 24; i++) {
     } else if (currentTime < iTime) {
         var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right bg-success");
     } else {
-        var calendarRow = $("<section></section>").addClass("row containerRow border  border-dark border-left-0 rounded-right");
+        var calendarRow = $("<section></section>").addClass("row containerRow border  border-dark border-left-0 rounded-right lightgrey");
     }
-    var hourCol1 = $("<div></div>").addClass("col-2  p-3 text-right bg-white schedTime pt-4 align-baseline").attr('id', 'eventTime' + i).html("<h4>" + timeLabel + "</h4>");
+    var hourCol1 = $("<div></div>").addClass("col-2  p-3 text-right bg-light schedTime pt-4 align-baseline").attr('id', 'eventTime' + i).html("<h4>" + timeLabel + "</h4>");
     var hourCol2 = $("<input></input>").addClass(" col-9 d-flex align-top pl-2 pr-2  border-0 p-0 text-top bg-transparent align-baseline").attr('id', 'scheduleEvent' + i).attr("type", "text");
     var hourCol3 = $("<button></button>").addClass("col-1 d-flex p-3 bg-info text-light justify-content-center border-0 align-middle").attr('id', 'saveEvent').html('<span class="material-symbols-outlined align-self-center">save</span>');
     //populate schedule with saved events

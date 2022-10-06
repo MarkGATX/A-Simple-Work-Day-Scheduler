@@ -9,3 +9,11 @@ p {
 h4 {
     font-family: 'Hind Madurai';
 }
+
+.darkteal {
+    background-color:#26555c !important;
+}
+
+.lightgrey {
+    background-color:#d2d9dc !important;
+}
