@@ -39,7 +39,7 @@ for (let i = 0; i < 24; i++) {
         hourCol2.removeClass('text-light').addClass('text-secondary');
     };
     calendarRow.append(hourCol1, hourCol2, hourCol3, hourCol4);
-   
+
 };
 
 
@@ -63,6 +63,12 @@ function storeEvent(e) {
     if (clickedEventData === "") {
         e.target.blur();
         return
+    }
+    //If event in the past, open modal saying no past events and clear input
+    if (clicked.closest('.lightgrey') !== null) {
+        $('#noPastEvents').modal();
+        clicked.previousSibling.previousSibling.value = "";
+        return;
     }
 
     var clickedEventTime = clicked.previousSibling.previousSibling.previousSibling.textContent;
