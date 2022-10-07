@@ -4,21 +4,21 @@ var currentDate = moment().format("dddd MMM Do YYYY");
 //Fill in current date
 $(".currentDate").text(currentDate);
 //populate calendar page
-for (let i = 0; i < 24; i++) {
+for (let i = 7; i < 20; i++) {
     //use moment.js to log times in first column and compare to current time
     let currentTime = moment().format("HH MMMM Do");
     let iTime = moment(i, "HH MMMM Do").format("HH MMMM Do");
     let timeLabel = moment(i, 'HH').format('h a');
+    var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right bg-transparent");
+    var hourCol1 = $("<div></div>").addClass("col-2  p-3 text-right bg-light schedTime pt-4 align-baseline").attr('id', 'eventTime' + i).html("<h4>" + timeLabel + "</h4>");
     // change color based on whether time is before, at, or after current hour
     if (currentTime === iTime) {
-        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right bg-danger");
+        var hourCol2 = $("<input></input>").addClass(" col-8 d-flex align-top pl-2 pr-2  border-0 p-0 text-top text-light  bg-danger align-baseline").attr('id', 'scheduleEvent' + i).attr("type", "text");
     } else if (currentTime < iTime) {
-        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right bg-success");
+        var hourCol2 = $("<input></input>").addClass(" col-8 d-flex align-top pl-2 pr-2  border-0 p-0 text-top text-light  bg-success align-baseline").attr('id', 'scheduleEvent' + i).attr("type", "text");
     } else {
-        var calendarRow = $("<section></section>").addClass("row containerRow border border-dark border-left-0 rounded-right lightgrey");
+        var hourCol2 = $("<input></input>").addClass(" col-8 d-flex align-top pl-2 pr-2  border-0 p-0 text-top text-secondary  bg-light align-baseline").attr('id', 'scheduleEvent' + i).attr("type", "text");
     };
-    var hourCol1 = $("<div></div>").addClass("col-2  p-3 text-right bg-light schedTime pt-4 align-baseline").attr('id', 'eventTime' + i).html("<h4>" + timeLabel + "</h4>");
-    var hourCol2 = $("<input></input>").addClass(" col-8 d-flex align-top pl-2 pr-2  border-0 p-0 text-top text-light  bg-transparent align-baseline").attr('id', 'scheduleEvent' + i).attr("type", "text");
     var hourCol3 = $("<button></button>").addClass("col-1 d-flex p-3 darkteal text-light justify-content-center border-0 align-middle").attr('id', 'clearEvent').html('<span class="material-symbols-outlined align-self-center">delete</span>');
     var hourCol4 = $("<button></button>").addClass("col-1 d-flex p-3 bg-info text-light justify-content-center border-0 align-middle").attr('id', 'saveEvent').html('<span class="material-symbols-outlined align-self-center">save</span>');
     //populate schedule with saved events
@@ -35,9 +35,7 @@ for (let i = 0; i < 24; i++) {
     // append html elements
     $(".calendar").append(calendarRow);
     //if calendar row has light background, change text from light to dark
-    if (calendarRow.hasClass('lightgrey')) {
-        hourCol2.removeClass('text-light').addClass('text-secondary');
-    };
+
     calendarRow.append(hourCol1, hourCol2, hourCol3, hourCol4);
 
 };
@@ -65,12 +63,12 @@ function storeEvent(e) {
         return
     }
     //If event in the past, open modal saying no past events and clear input
-    if (clicked.closest('.lightgrey') !== null) {
+    if (clicked.previousSibling.previousSibling.classList.contains('bg-light')) {
         $('#noPastEvents').modal();
         clicked.previousSibling.previousSibling.value = "";
         return;
     }
-
+    //modify event if already exists
     var clickedEventTime = clicked.previousSibling.previousSibling.previousSibling.textContent;
     for (let i = 0; i < scheduledEvent.length; i++) {
         if (scheduledEvent[i].includes(clickedEventTime)) {
