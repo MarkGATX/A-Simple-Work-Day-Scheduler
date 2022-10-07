@@ -34,9 +34,18 @@ for (let i = 0; i < 24; i++) {
     };
     // append html elements
     $(".calendar").append(calendarRow);
+    //if calendar row has light background, change text from light to dark
+    if (calendarRow.hasClass('lightgrey')) {
+        hourCol2.removeClass('text-light');
+        hourCol2.addClass('text-secondary');
+    };
     calendarRow.append(hourCol1, hourCol2, hourCol3, hourCol4);
+    console.log($('input'));
+  
 
 };
+
+
 
 // start event listeners
 $('#calendarContainer').on('click', '#saveEvent', storeEvent);
