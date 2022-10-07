@@ -27,7 +27,7 @@ for (let i = 0; i < 24; i++) {
         scheduledEvent = [];
         localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
     }
-    for (let i = 0; i<scheduledEvent.length; i++) {
+    for (let i = 0; i < scheduledEvent.length; i++) {
         if (scheduledEvent[i][0] === timeLabel) {
             hourCol2.val(scheduledEvent[i][1]);
         }
@@ -36,15 +36,11 @@ for (let i = 0; i < 24; i++) {
     $(".calendar").append(calendarRow);
     //if calendar row has light background, change text from light to dark
     if (calendarRow.hasClass('lightgrey')) {
-        hourCol2.removeClass('text-light');
-        hourCol2.addClass('text-secondary');
+        hourCol2.removeClass('text-light').addClass('text-secondary');
     };
     calendarRow.append(hourCol1, hourCol2, hourCol3, hourCol4);
-    console.log($('input'));
-  
-
+   
 };
-
 
 
 // start event listeners
@@ -54,7 +50,6 @@ $('#calendarContainer').on('click', '#clearEvent', clearEvent);
 
 function storeEvent(e) {
     // check for any saved values
-    console.log('ping');
     var scheduledEvent = JSON.parse(localStorage.getItem("savedEvents"));
     //initialize events variable if doesn't already exist in local storage
     if (scheduledEvent === null) {
@@ -63,40 +58,31 @@ function storeEvent(e) {
     };
     // get text input values and values of time
     var clicked = e.target.closest('#saveEvent');
-    console.log(clicked)
-    console.log(clicked.previousSibling.previousSibling)
     var clickedEventData = clicked.previousSibling.previousSibling.value;
-    console.log(clicked.previousSibling.value + "value");
     //If event field is blank, stop
     if (clickedEventData === "") {
         e.target.blur();
         return
     }
-    
+
     var clickedEventTime = clicked.previousSibling.previousSibling.previousSibling.textContent;
-    for (let i =0; i<scheduledEvent.length; i++) {
-        console.log(clickedEventData);
-        console.log(clickedEventTime);
-        console.log(scheduledEvent[i]);
+    for (let i = 0; i < scheduledEvent.length; i++) {
         if (scheduledEvent[i].includes(clickedEventTime)) {
-            console.log(scheduledEvent[i]);
-             scheduledEvent[i] = [clickedEventTime, clickedEventData, moment()];
-            console.log(scheduledEvent[i]);
+            scheduledEvent[i] = [clickedEventTime, clickedEventData, moment()];
             localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
             e.target.blur();
             return;
         };
     };
     //put time and event data in new arry
-    var newEvent = [clickedEventTime, clickedEventData, moment()];
-    console.log(newEvent);
+    var newEvent = [clickedEventTime, clickedEventData, moment().format('MMM Do YY')];
     //push newEvents into existing event array
     scheduledEvent.push(newEvent);
     localStorage.setItem("savedEvents", JSON.stringify(scheduledEvent));
     e.target.blur();
 };
 
-function clearEvent (e){
+function clearEvent(e) {
     //get local storage
     var scheduledEvent = JSON.parse(localStorage.getItem("savedEvents"));
     //get button pushed
@@ -104,11 +90,9 @@ function clearEvent (e){
     // get event time 
     var clickedEventTime = clicked.previousSibling.previousSibling.textContent;
     //compare event time to arrays, when there's a match delete that array element
-    for (let i = 0; i < scheduledEvent.length; i ++) {
-        console.log(scheduledEvent[i])
-        console.log(scheduledEvent[i][0])
+    for (let i = 0; i < scheduledEvent.length; i++) {
         if (clickedEventTime === scheduledEvent[i][0]) {
-            scheduledEvent.splice(i,1);
+            scheduledEvent.splice(i, 1);
         }
     }
     //push modified array to local storage
@@ -116,3 +100,5 @@ function clearEvent (e){
     //clear text input on screen
     clicked.previousSibling.value = "";
 }
+
+
